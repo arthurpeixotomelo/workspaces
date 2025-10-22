@@ -1,0 +1,5 @@
+/node/**/.git
+/deno/**/.git
+/python/**/.git
+
+!.gitignore

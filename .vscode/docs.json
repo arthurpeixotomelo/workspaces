@@ -1,0 +1,106 @@
+[
+  {
+    "name": "LangChain JavaScript",
+    "llms_txt": "https://js.langchain.com/llms.txt"
+  },
+  {
+    "name": "LangChain Python",
+    "llms_txt": "https://python.langchain.com/llms.txt"
+  },
+  {
+    "name": "LangGraph JavaScript",
+    "llms_txt": "https://langchain-ai.github.io/langgraphjs/llms-full.txt"
+  },
+  {
+    "name": "LangGraph Python",
+    "llms_txt": "https://langchain-ai.github.io/langgraph/llms-full.txt"
+  },
+  {
+    "name": "MCP",
+    "llms_txt": "https://modelcontextprotocol.io/llms-full.txt"
+  },
+  {
+    "name": "Astro",
+    "llms_txt": "https://docs.astro.build/llms-full.txt"
+  },
+  {
+    "name": "Deno",
+    "llms_txt": "https://docs.deno.com/llms.txt"
+  },
+  {
+    "name": "Vite",
+    "llms_txt": "https://vite.dev/llms.txt"
+  },
+  {
+    "name": "Better Auth",
+    "llms_txt": "https://www.better-auth.com/llms.txt"
+  },
+  {
+    "name": "Upstash",
+    "llms_txt": "https://upstash.com/docs/llms.txt"
+  },
+  {
+    "name": "Drizzle ORM",
+    "llms_txt": "https://orm.drizzle.team/llms-full.txt"
+  },
+  {
+    "name": "llms.txt",
+    "llms_txt": "https://llmstxt.org/llms.txt"
+  },
+  {
+    "name": "Pydantic",
+    "llms_txt": "https://docs.pydantic.dev/latest/llms-full.txt"
+  },
+  {
+    "name": "Resend",
+    "llms_txt": "https://resend.com/docs/llms.txt"
+  },
+  {
+    "name": "Stripe",
+    "llms_txt": "http://docs.stripe.com/llms.txt"
+  },
+  {
+    "name": "Turso",
+    "llms_txt": "https://docs.turso.tech/llms.txt"
+  },
+  {
+    "name": "Trigger.dev",
+    "llms_txt": "https://trigger.dev/docs/llms.txt"
+  },
+  {
+    "name": "Vercel's AI SDK",
+    "llms_txt": "https://sdk.vercel.ai/llms.txt"
+  },
+  {
+    "name": "Hugging Face Diffusers",
+    "llms_txt": "https://huggingface-projects-docs-llms-txt.hf.space/diffusers/llms.txt"
+  },
+  {
+    "name": "Hugging Face Transformers",
+    "llms_txt": "https://huggingface-projects-docs-llms-txt.hf.space/transformers/llms.txt"
+  },
+  {
+    "name": "Hugging Face Accelerate",
+    "llms_txt": "https://huggingface-projects-docs-llms-txt.hf.space/accelerate/llms.txt"
+  },
+  {
+    "name": "Anthropic",
+    "llms_txt": "https://docs.anthropic.com/llms.txt"
+  },
+  {
+    "name": "Meilisearch",
+    "llms_txt": "https://www.meilisearch.com/llms-full.txt"
+  },
+  {
+    "name": "Neon",
+    "llms_txt": "https://neon.com/llms.txt"
+  },
+  {
+    "name": "Hono",
+    "llms_txt": "https://hono.dev/llms-full.txt"
+  },
+  {
+    "name": "Zod",
+    "llms_txt": "https://zod.dev/llms.txt"
+  }
+]
