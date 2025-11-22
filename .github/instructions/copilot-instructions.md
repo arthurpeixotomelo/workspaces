@@ -1,95 +1,117 @@
 ---
-applyTo: "**"
+description: 'Global guidelines for GitHub Copilot code generation, ensuring alignment with repository instructions and explicit context provenance for each action'
+applyTo: '**'
 ---
 
-# General Model Instructions (Strict Agent Mode)
+# GitHub Copilot General Instructions
 
-## Pre-Action Checklist
+Core instructions for maintaining code quality, consistency, and architectural alignment across all code generation tasks.
 
-Before any action, the agent must confirm and log (use `(x)` for checked, `( )` for unchecked):
+## Project Context
 
-- ( ) Architecture/implementation plan **or relevant instruction file** found and used
-- ( ) All relevant instruction files referenced and applied
-- ( ) All required documentation for libraries incorporated
-- ( ) "Planner" chatmode used for all planning/analysis steps
+- **Purpose**: Ensure generated changes are informed by repository instruction files and documentation, and that the agent records what it used.
+- **Scope**: Global guidance applied before any code generation or modification.
+- **Integration**: Works with `.github/instructions/*` files, agent modes, and external context tools (e.g., contextDocs, mcp) when available.
 
-If any item is unchecked, **halt and prompt the user** for the missing prerequisite.
+## Context & Applied Instructions
 
----
+Before making code changes, the agent MUST enumerate the instruction files, docs, and external context sources consulted for the task. This makes it easy to test whether the LLM had the expected inputs and prevents silent assumptions.
 
-## 1. Architecture/Implementation Plan & Guidelines Precedence
+- Required content: a concise "Used Instructions & Docs" section to precede any implementation summary or change.
+- Required fields (one-line list or YAML block preferred):
+  - used_instructions: list of repository instruction files consulted (paths)
+  - external_docs: list of external documentation sources retrieved (URLs or tool names)
+  - tools: list of context tools used to gather docs (e.g., contextDocs, mcp)
+  - assumptions: brief list of any assumptions made due to missing context
 
-- **Always search for a software architecture or implementation plan** in the current repository (README, `.md` files, or designated planning docs) before any code generation.
-- **Definition of Plan/Guideline:**  
-  For routine refactors, code style, or best-practice improvements, the presence of a relevant instruction file (e.g., `.github/instructions/css.instructions.md`, `.github/instructions/markdown.instructions.md`, or language/framework-specific guides) is sufficient and should be treated as the guiding plan.  
-  Only block and require a new architecture/implementation plan if the request involves a new feature, major system change, or if no relevant guideline exists.
-- **If a plan or relevant instruction file exists:**  
-  - Use it as the *primary and binding* guide for all implementation and code generation.
-  - Reference and follow all additional instructions (e.g., `.github/instructions/markdown.instructions.md`, language/framework-specific guides) relevant to the context, file type, or language.  
-  - If multiple instruction files are relevant (e.g., for web projects involving HTML, CSS, JS, frameworks), apply all of them.
-- **If no plan or relevant instruction file exists:**  
-  - **Do not generate code under any circumstances.**  
-  - Prompt the user to create or provide an architecture/implementation plan or relevant instruction file using the standard template (see `.github/instructions/markdown.instructions.md`).
-  - Only proceed once a plan or relevant instruction file is available.
-- **If any planning, requirements analysis, or implementation plan creation is needed:**  
-  - **Always switch to or invoke the "Planner" chatmode and follow its process before proceeding.**
+Example (markdown block):
 
----
+```yaml
+# Used Instructions & Docs:
+used_instructions: 
+ - .github/instructions/markdown.instructions.md
+ - .github/instructions/javascript.instructions.md
+external_docs: https://nodejs.org/..., https://drizzle-orm/llms-full.txt]  
+ - https://nodejs.org/...
+ - https://drizzle-orm/llms-full.txt
+tools: 
+ - contextDocs
+assumptions: 
+ - "No repo-level architecture file found; assumed Node+Hono default structure"
+```
 
-## 2. Contextual Documentation Search (Library Usage)
+Behavior when items are missing:
+- Routine edits / small refactors: agent should list missing guidance, state assumptions, and may proceed after confirmation or if user explicitly requested the change.
+- New features, major architecture changes, or unclear requirements: agent should NOT proceed automatically. Instead, it should propose a minimal plan and ask to confirm.
+- Agents should avoid failing silently — if a critical instruction file is expected but unavailable, make that explicit in the "Used Instructions & Docs" block and ask the user how to proceed.
 
-- **Use the `contextDocs` toolset only when:**
-  - A library is detected in the codebase, mentioned in requirements, or requested for use.
-  - You are generating new code or modifying existing code that uses a library.
-- **When using a library:**
-  - Prefer libraries that already have an `llms.txt` file linked in `llmsTxtDocs` or similar sources.
-  - Retrieve and incorporate up-to-date documentation for the relevant library before generating or modifying code.
+## General Instructions
 
----
+- Always search for repository instruction files and relevant docs before implementing non-trivial changes.
+- Treat a relevant `.instructions.md` file as the primary guide for routine language/framework decisions.
+- Prefer explicitness in naming and API design; align with the project's style and design-principles instruction when present.
+- When external libraries are involved, retrieve and reference up-to-date docs (list them under external_docs).
+- Record provenance: every actionable output must include the "Used Instructions & Docs" block shown above.
 
-## 3. Summarize Implementation
+## Code Generation Requirements
 
-- Summarize the implementation approach that will be applied, based on the available architecture/plan and any relevant documentation.
-- Clearly state how the plan and documentation inform the implementation.
-- **Explicitly list all instruction files and documentation used for the current action.**
-- **Log the reasoning** for each step, especially when multiple instruction files are combined or when using the "Planner" chatmode.
+- Proceed to code generation when:
+  - For routine changes: relevant instruction file(s) were found and listed, and the agent's confidence is documented.
+  - For new features or cross-cutting changes: either an architecture/implementation plan exists or the user explicitly approves the agent's proposed plan.
+- Always include the "Used Instructions & Docs" block in PR descriptions, change summaries, or top of generated files when applicable.
 
----
+## Implementation Summary & Reasoning
 
-## 4. Code Generation
+- For each action, produce a short implementation summary showing how the referenced instruction files informed decisions.
+- Include an explicit list of instruction files and docs used (paths and URLs) plus the short reasoning for why each was applied.
+- Example summary (after the used-instructions block):
+  - Implementation approach: "Create X using pattern Y from .github/instructions/..."  
+  - Reasoning: "Applied performance and design-principles files because this change touches hot paths and public APIs."
 
-- Only proceed to code generation after:
-  - An architecture/plan **or relevant instruction file** has been found and strictly followed.
-  - All relevant documentation for libraries to be used has been incorporated.
-  - All relevant instruction files have been referenced and their requirements applied.
-  - The "Planner" chatmode has been used for all planning/analysis steps.
-- Ensure all generated code aligns with the plan and all referenced instructions.
+## Example Output Template (required in agent responses for code changes)
 
----
+```yaml
+# Used Instructions & Docs:
+used_instructions:
+  - .github/instructions/markdown.instructions.md
+  - .github/instructions/design-principles.instructions.md
+external_docs:
+  - https://nodejs.org/...
+tools:
+  - contextDocs
+assumptions:
+  - "No repo README describing architecture; assumed microservice with REST API"
+```
+Followed by a 2–4 sentence Implementation Summary and the code patch or file contents.
 
-## 5. Reference to Other Instructions
+## Always Output
 
-- When working with markdown, documentation, or language-specific files, always reference and comply with all relevant instruction files (e.g., `.github/instructions/markdown.instructions.md`, language/framework-specific guides).
-- If in doubt, prompt the user for clarification or for the appropriate instruction file.
+- The agent must always include the "Used Instructions & Docs" block when performing code generation or repo-wide documentation work.
+- When asked to produce documentation or plans, use `.github/instructions/markdown.instructions.md` conventions for structure and diagram placement.
 
----
+## Instruction File Hierarchy
 
-## Example Summary of Used Instructions/Docs
+When generating code, apply instructions in this order (higher priority = applied last, can override earlier rules):
 
-> **Instruction/Documentation Summary:**  
-> - Architecture/Plan: `README.md`
-> - Instruction Files: `.github/instructions/markdown.instructions.md`, `.github/instructions/javascript.instructions.md`
-> - Library Docs: [Drizzle ORM](https://orm.drizzle.team/llms-full.txt), [Hono](https://hono.dev/llms-full.txt)  
-> - Reasoning: Used "Planner" chatmode for requirements analysis and plan; combined markdown and JavaScript instructions due to mixed file context; followed architecture plan for all structural decisions.
+1. **Foundational Principles** (`.github/instructions/core/*.instructions.md`)
+   - Design & architecture patterns, performance optimization, testing strategy
+   - Applies to all code regardless of language or framework
+   
+2. **Language-Specific** (`.github/instructions/lang/*.instructions.md`)
+   - Language idioms, standard library usage, type systems
+   - Builds on foundational principles with language-specific patterns
+   
+3. **Library/Framework/Tool-Specific** (`.github/instructions/libs/*.instructions.md`)
+   - Framework conventions, library APIs, tool-specific workflows
+   - Most specific layer; assumes foundational + language context
 
-> **Example (Routine Refactor):**  
-> - Task: Refactor CSS in a component  
-> - Architecture/Plan: `.github/instructions/css.instructions.md`  
-> - Instruction Files: `.github/instructions/markdown.instructions.md`, `.github/instructions/css.instructions.md`  
-> - Reasoning: Used CSS and markdown instructions as the guiding plan for style refactor; no feature-level plan required for this scope.
+**Conflict Resolution:**
+- More specific layers override general ones (libs > lang > core)
+- More specific `applyTo` patterns win over generic patterns
+- Explicit user requests override all instructions
+- When conflicts remain, list them in "Used Instructions & Docs" and ask user to clarify
 
----
-
-> **Note:**  
-> The agent must be strict in enforcing these steps. If any required plan, documentation, or instruction file is missing, halt and prompt the user rather than proceeding.  
-> Always output a summary of which instruction files and documentation were used for each action, and provide reasoning for their selection and application.
+**Example**: For a React TypeScript component:
+- Apply `core/design.instructions.md` (SRP, modularity)
+- Apply `lang/typescript.instructions.md` (types, immutability)
+- Apply `libs/react.instructions.md` (hooks, component patterns)

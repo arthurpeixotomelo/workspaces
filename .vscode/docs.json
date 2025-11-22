@@ -16,6 +16,22 @@
     "llms_txt": "https://langchain-ai.github.io/langgraph/llms-full.txt"
   },
   {
+    "name": "Hugging Face Diffusers",
+    "llms_txt": "https://huggingface-projects-docs-llms-txt.hf.space/diffusers/llms.txt"
+  },
+  {
+    "name": "Hugging Face Transformers",
+    "llms_txt": "https://huggingface-projects-docs-llms-txt.hf.space/transformers/llms.txt"
+  },
+  {
+    "name": "Hugging Face Accelerate",
+    "llms_txt": "https://huggingface-projects-docs-llms-txt.hf.space/accelerate/llms.txt"
+  },
+  {
+    "name": "llms.txt",
+    "llms_txt": "https://llmstxt.org/llms.txt"
+  },
+  {
     "name": "MCP",
     "llms_txt": "https://modelcontextprotocol.io/llms-full.txt"
   },
@@ -44,10 +60,6 @@
     "llms_txt": "https://orm.drizzle.team/llms-full.txt"
   },
   {
-    "name": "llms.txt",
-    "llms_txt": "https://llmstxt.org/llms.txt"
-  },
-  {
     "name": "Pydantic",
     "llms_txt": "https://docs.pydantic.dev/latest/llms-full.txt"
   },
@@ -70,18 +82,6 @@
   {
     "name": "Vercel's AI SDK",
     "llms_txt": "https://sdk.vercel.ai/llms.txt"
-  },
-  {
-    "name": "Hugging Face Diffusers",
-    "llms_txt": "https://huggingface-projects-docs-llms-txt.hf.space/diffusers/llms.txt"
-  },
-  {
-    "name": "Hugging Face Transformers",
-    "llms_txt": "https://huggingface-projects-docs-llms-txt.hf.space/transformers/llms.txt"
-  },
-  {
-    "name": "Hugging Face Accelerate",
-    "llms_txt": "https://huggingface-projects-docs-llms-txt.hf.space/accelerate/llms.txt"
   },
   {
     "name": "Anthropic",

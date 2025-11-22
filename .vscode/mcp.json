@@ -6,12 +6,12 @@
       "description": "GitHub Personal Access Token",
       "password": true
     },
-    {
-      "type": "promptString",
-      "id": "posthog_api_key",
-      "description": "PostHog API Key",
-      "password": true
-    }
+    // {
+    //   "type": "promptString",
+    //   "id": "posthog_api_key",
+    //   "description": "PostHog API Key",
+    //   "password": true
+    // }
   ],
   "servers": {
     "llmsTxtDocs": {
@@ -60,16 +60,16 @@
     "inkeepMcp": {
       "url": "https://mcp.inkeep.com/zod/mcp"
     },
-    "postHog": {
-      "command": "deno",
-      "args": [
-        "run",
-        "-A",
-        "npm:mcp-remote",
-        "https://mcp.posthog.com/sse",
-        "--header",
-        "Authorization: Bearer ${input:posthog_api_key}"
-      ],
-    }
+    // "postHog": {
+    //   "command": "deno",
+    //   "args": [
+    //     "run",
+    //     "-A",
+    //     "npm:mcp-remote",
+    //     "https://mcp.posthog.com/sse",
+    //     "--header",
+    //     "Authorization: Bearer ${input:posthog_api_key}"
+    //   ],
+    // }
   }
 }

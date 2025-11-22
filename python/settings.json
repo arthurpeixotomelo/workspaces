@@ -1,5 +1,0 @@
-{
-    "python.createEnvironment.trigger": "off",
-    "ruff.importStrategy": "useBundled",
-    "editor.defaultFormatter": "charliermarsh.ruff"
-}
