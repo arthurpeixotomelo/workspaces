@@ -50,12 +50,12 @@ applyTo: '**'
 - **Audit Columns**: `created_at`, `updated_at`.
 - **Constraints**: NOT NULL by default. Enforce Foreign Keys.
 - **Indexing**: Index FKs and frequent query columns. Avoid over-indexing.
-- **File Organization**: `api/db/{migrations,seeds,schema}/`.
+- **File Organization**: `db/{migrations,seeds,schema}/`.
 
 ### SQL Development
 - **Style**: Uppercase keywords (SELECT, WHERE). Consistent indentation.
-- **Query Structure**: Explicit columns (No `SELECT *`). Explicit JOINs. SARGable WHERE clauses.
-- **Stored Procedures**: PascalCase `usp_Name`. Parameterize queries. Handle transactions.
+- **Query Structure**: Explicit JOINs. SARGable WHERE clauses.
+- **Stored Procedures**: Parameterize queries. Handle transactions.
 
 ### Power BI & Analytical Specifics
 - **Date Tables**: Dedicated Date dimension with hierarchy.

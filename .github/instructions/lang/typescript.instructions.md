@@ -1,6 +1,6 @@
 ---
 description: 'Guidelines for TypeScript and JavaScript development, targeting ES2022+.'
-applyTo: '**/*.{ts,tsx,js,jsx,mjs,cjs,mts,cts}'
+applyTo: '**/*.{ts,tsx,js,jsx,mjs,mts}'
 ---
 
 # TypeScript & JavaScript Development
