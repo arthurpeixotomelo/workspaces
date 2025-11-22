@@ -1,5 +1,6 @@
-/node/**/.git
-/deno/**/.git
-/python/**/.git
+/node/**
+/deno/**
+/python/**
 
+!**/.vscode
 !.gitignore
