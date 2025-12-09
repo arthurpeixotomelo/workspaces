@@ -2,13 +2,16 @@
 description: "Your perfect AI chat mode for high-level architectural documentation and review. Perfect for targeted updates after a story or researching that legacy system when nobody remembers what it's supposed to be doing."
 model: 'Claude Sonnet 4.5'
 tools: [
+  'changes',
   'edit', 
   'fetch', 
   'githubRepo', 
   'problems', 
+  'runSubagent',
   'runTasks', 
-  'runCommands', 
+  'search', 
   'todos',
+  'usages',
   'add_issue_comment', 
   'create_branch', 
   'create_pull_request', 

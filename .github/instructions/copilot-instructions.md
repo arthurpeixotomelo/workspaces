@@ -53,6 +53,30 @@ Behavior when items are missing:
 - When external libraries are involved, retrieve and reference up-to-date docs (list them under external_docs).
 - Record provenance: every actionable output must include the "Used Instructions & Docs" block shown above.
 
+## Prefer Tools over Inline Terminal Commands
+
+- When performing actions that require running scripts, tests, or file operations, prefer invoking repository tools (e.g. `runCommands`, `terminal`, `search/replace` tools, `git` tool integrations) instead of embedding long shell code blocks in the response.
+- Always:
+  - Identify the specific tool to call and include a one-line rationale (e.g., "run tests with `pnpm test` using runCommands to capture structured output").
+  - Provide the exact command, working directory, and any environment variables in a "Tool Invocation" template (see below).
+  - Log the tool used under `tools:` in the "Used Instructions & Docs" block.
+- Tool Invocation template (use when calling a tool programmatically):
+
+```yaml
+tool: runCommands
+command: pnpm test
+cwd: node/fin-hub
+env:
+  CI: 'true'
+reason: "Run unit tests as part of verification"
+```
+
+- Fallback: if the required tool is not available in the environment, list that explicitly in `assumptions:` and propose a minimal manual command the user can run, asking for confirmation before proceeding.
+- Avoid multi-file inline search-and-replace in freeform text. Instead, either:
+  - Use a repository patch tool (push_files / edit) to apply precise diffs, or
+  - Propose a concise, auditable script and trigger it via the terminal tool with clear rollback instructions.
+- Rationale: using tools reduces fragile iteration loops caused by pasted shell commands, produces structured output, and enables auditing and replayability.
+
 ## Code Generation Requirements
 
 - Proceed to code generation when:
