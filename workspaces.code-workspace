@@ -1,8 +1,0 @@
-{
-  "folders": [
-    { "path": "." },
-    { "path": "node" },
-    { "path": "deno" },
-    { "path": "python" }
-  ],
-}

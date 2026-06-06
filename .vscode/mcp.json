@@ -1,11 +1,11 @@
 {
   "inputs": [
-    {
-      "type": "promptString",
-      "id": "github_pat",
-      "description": "GitHub Personal Access Token",
-      "password": true
-    },
+    // {
+    //   "type": "promptString",
+    //   "id": "github_pat",
+    //   "description": "GitHub Personal Access Token",
+    //   "password": true
+    // }
     // {
     //   "type": "promptString",
     //   "id": "posthog_api_key",
@@ -14,52 +14,28 @@
     // }
   ],
   "servers": {
-    "llmsTxtDocs": {
-      "command": "uvx",
-      "args": [
-        "--from",
-        "mcpdoc",
-        "mcpdoc",
-        "--json",
-        ".vscode/docs.json",
-        "--follow-redirects",
-        "--transport",
-        "stdio"
-      ]
-    },
-    "llmsTxtExplorer": {
-      "command": "deno",
-      "args": ["run", "-A", "npm:@thedaviddias/mcp-llms-txt-explorer"]
-    },
     "llmsContext": {
       "type": "stdio",
       "command": "deno",
       "args": ["run", "-A", "npm:@upstash/context7-mcp"]
-    },
+    }
+    // "github": {
+    //   "type": "http",
+    //   "url": "https://api.githubcopilot.com/mcp/",
+    //   "headers": {
+    //     "Authorization": "Bearer ${input:github_pat}"
+    //   }
+    // },
     // "huggingface": {
     //   "url": "https://huggingface.co/mcp",
     //   "headers": {
     //       "Authorization": "Bearer <YOUR_HF_TOKEN>"
     //   }
     // },
-    "Astro docs": {
-      "type": "http",
-      "url": "https://mcp.docs.astro.build/mcp"
-    },
-    "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/",
-      "headers": {
-        "Authorization": "Bearer ${input:github_pat}"
-      }
-    },
-    "neon": {
-      "command": "deno",
-      "args": ["run", "-A", "npm:mcp-remote", "https://mcp.neon.tech/sse"]
-    },
-    "inkeepMcp": {
-      "url": "https://mcp.inkeep.com/zod/mcp"
-    },
+    // "neon": {
+    //   "command": "deno",
+    //   "args": ["run", "-A", "npm:mcp-remote", "https://mcp.neon.tech/sse"]
+    // }
     // "postHog": {
     //   "command": "deno",
     //   "args": [
