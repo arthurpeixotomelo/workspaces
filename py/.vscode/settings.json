@@ -1,0 +1,6 @@
+{
+  "ruff.enable": true,
+  "python.languageServer": "Default",
+  "editor.defaultFormatter": "charliermarsh.ruff",
+  "notebook.defaultFormatter": "charliermarsh.ruff",
+}
